@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import auth from './auth/index.js';
-
 const router = Router();
 
-router.use('/auth', auth);
+import register from './register.js';
+
+router.use('/register', register);
 
 export default router;
