@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
-const Role = mongoose.model(
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
+
+const Role = model(
   'Role',
-  new mongoose.Schema({
+  new Schema({
     name: String,
   })
 );
