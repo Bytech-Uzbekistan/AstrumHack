@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
     const accessToken = jwt.sign({ user }, process.env.JWT_SECRET, {
       expiresIn: '30d',
     });
-    res.status(201).json({ user, accessToken: accessToken });
+    res.status(201).json({ accessToken: accessToken });
   } catch (e) {
     console.log('Error creating user');
     res.status(401).json({ error: e });
