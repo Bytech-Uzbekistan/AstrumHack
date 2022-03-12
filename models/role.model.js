@@ -7,4 +7,4 @@ const Role = model(
     name: String,
   })
 );
-module.exports = Role;
+export default Role;
