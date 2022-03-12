@@ -3,6 +3,10 @@ dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import routes from './routes/index.js';
+import cors from 'cors';
+const corsOptions = {
+  origin: 'http://localhost:8081',
+};
 
 const main = async () => {
   const app = express();
@@ -10,6 +14,7 @@ const main = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.set('view engine', 'ejs');
+  app.use(cors(corsOptions));
 
   await mongoose
     .connect(
@@ -28,8 +33,9 @@ const main = async () => {
 
   app.use('/', routes);
 
-  app.listen(process.env.PORT || 3000, function () {
-    console.log('Server started');
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
   });
 };
 

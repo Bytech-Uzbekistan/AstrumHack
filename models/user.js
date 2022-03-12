@@ -15,6 +15,8 @@ const userSchema = new Schema(
       unique: true,
       uniqueCaseInsensitive: true,
     },
+    isVerified: { type: Boolean, required: true, default: false },
+    isAdmin: { type: Boolean, required: true, default: false },
     password: { type: String, required: true },
     phoneNumber: {
       type: String,
@@ -29,6 +31,7 @@ const userSchema = new Schema(
       default: `${process.env.DOMAIN}/images/default/default-avatar.png`,
       required: false,
     },
+    bookedTable: { type: Object, required: false },
   },
   { timestamps: true }
 );
