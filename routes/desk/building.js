@@ -3,7 +3,7 @@ const router = Router();
 import Building from '../../models/building.model.js';
 import { authenticate, isAdmin } from '../../middleware/authenticate.js';
 
-router.get('/', authenticate, async (req, res) => {
+router.get('/', authenticate, isAdmin, async (req, res) => {
   try {
     const buildings = await Building.find();
     res.status(200).json({ buildings });
@@ -12,7 +12,7 @@ router.get('/', authenticate, async (req, res) => {
   }
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', authenticate, isAdmin, async (req, res) => {
   try {
     const building = await Building.create({ name: req.body.name });
     res.status(200).json({ building });
