@@ -1,8 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 import Building from '../../models/building.model.js';
+import { authenticate, isAdmin } from '../../middleware/authenticate.js';
 
-router.get('/buildings', async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
   try {
     const buildings = await Building.find();
     res.status(200).json({ buildings });
