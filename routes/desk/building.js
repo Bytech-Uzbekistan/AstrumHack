@@ -1,9 +1,12 @@
 import { Router } from 'express';
 const router = Router();
 import Building from '../../models/building.model.js';
-import { authenticate, isAdmin } from '../../middleware/authenticate.js';
+import {
+  verifyTokenAndAdmin,
+  verifyTokenAndAuth,
+} from '../../middleware/verifyToken.js';
 
-router.get('/', authenticate, isAdmin, async (req, res) => {
+router.get('/', verifyTokenAndAuth, async (req, res) => {
   try {
     const buildings = await Building.find();
     res.status(200).json({ buildings });
@@ -12,7 +15,7 @@ router.get('/', authenticate, isAdmin, async (req, res) => {
   }
 });
 
-router.post('/create', authenticate, isAdmin, async (req, res) => {
+router.post('/create', verifyTokenAndAdmin, async (req, res) => {
   try {
     const building = await Building.create({ name: req.body.name });
     res.status(200).json({ building });

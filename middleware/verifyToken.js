@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndAuth = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id == req.params.id || req.user.isAdmin) {
+    if (req.user.data.id == req.params.id || req.user.data.isAdmin) {
       next();
     } else {
       res
@@ -30,12 +30,12 @@ const verifyTokenAndAuth = (req, res, next) => {
 
 const verifyTokenAndAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.isAdmin) {
+    if (req.user.data.isAdmin) {
       next();
     } else {
-      res
-        .status(403)
-        .json({ message: 'You are not allowed to take this action' });
+      res.status(403).json({
+        message: 'You are not allowed to take this action | YOU ARE NOT ADMIN',
+      });
     }
   });
 };

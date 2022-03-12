@@ -15,6 +15,7 @@ const userSchema = new Schema(
       unique: true,
       uniqueCaseInsensitive: true,
     },
+    isAdmin: { type: Boolean, required: false, default: false },
     isVerified: { type: Boolean, required: true, default: false },
     password: { type: String, required: true },
     phoneNumber: {
@@ -33,12 +34,6 @@ const userSchema = new Schema(
     bookedTable: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Table',
-      required: false,
-    },
-    role: {
-      type: String,
-      ref: 'Role',
-      default: 'member',
       required: false,
     },
   },
