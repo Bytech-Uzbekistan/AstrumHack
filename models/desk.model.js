@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
 import uniqueValidator from 'mongoose-unique-validator';
 
-export const deskSchema = new Schema({
+export const deskSchema = new mongoose.Schema({
   name: { type: 'string', required: true },
   reservations: [
     {
@@ -12,6 +11,6 @@ export const deskSchema = new Schema({
   ],
 });
 deskSchema.plugin(uniqueValidator);
-const Desk = model('Floor', deskSchema);
+const Desk = mongoose.model('Desk', deskSchema);
 
 export default Desk;

@@ -33,7 +33,7 @@ router.post('/create', verifyTokenAndAdmin, async (req, res) => {
 router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
   try {
     const desk = await Desk.findOneAndDelete({ _id: req.params.id });
-    res.status(200).json({ message: 'Floor has been deleted', desk });
+    res.status(200).json({ message: 'Desk has been deleted', desk });
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -48,7 +48,7 @@ router.put('/:id', verifyTokenAndAdmin, async (req, res) => {
       { new: true }
     );
     await desk.save();
-    res.status(200).json({ floor });
+    res.status(200).json({ desk });
   } catch (err) {
     res.status(500).json({ error: err });
   }
