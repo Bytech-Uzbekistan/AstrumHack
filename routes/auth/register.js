@@ -2,10 +2,13 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../../models/user.model.js';
 import jwt from 'jsonwebtoken';
+import { verifyTokenAndAdmin } from '../../middleware/verifyToken.js';
 
 const router = Router();
 
-router.post('/', async (req, res, next) => {
+//Only admins can register new user
+
+router.post('/', verifyTokenAndAdmin, async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   try {
     const user = await User.create({

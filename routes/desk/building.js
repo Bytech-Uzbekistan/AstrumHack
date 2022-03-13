@@ -1,12 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 import Building from '../../models/building.model.js';
-import {
-  verifyTokenAndAdmin,
-  verifyTokenAndAuth,
-} from '../../middleware/verifyToken.js';
+import { verifyTokenAndAdmin } from '../../middleware/verifyToken.js';
 
-router.get('/', verifyTokenAndAuth, async (req, res) => {
+router.get('/', verifyTokenAndAdmin, async (req, res) => {
   try {
     const buildings = await Building.find();
     res.status(200).json({ buildings });
@@ -23,5 +20,16 @@ router.post('/create', verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json({ error: err });
   }
 });
+
+router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const building = await Building.findOneAndDelete({ _id: req.params.id });
+    res.status(200).json({ message: 'Building has been deleted', building });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+
 
 export default router;

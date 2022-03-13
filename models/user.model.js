@@ -16,7 +16,7 @@ const userSchema = new Schema(
       uniqueCaseInsensitive: true,
     },
     isAdmin: { type: Boolean, required: false, default: false },
-    isVerified: { type: Boolean, required: true, default: false },
+    isVerified: { type: Boolean, required: true, default: true },
     password: { type: String, required: true },
     phoneNumber: {
       type: String,

@@ -16,17 +16,17 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-const verifyTokenAndAuth = (req, res, next) => {
-  verifyToken(req, res, () => {
-    if (req.user.data.id == req.params.id || req.user.data.isAdmin) {
-      next();
-    } else {
-      res
-        .status(403)
-        .json({ message: 'You ar not allowed to take this action' });
-    }
-  });
-};
+// const verifyTokenAndAuth = (req, res, next) => {
+//   verifyToken(req, res, () => {
+//     if (req.user.data.id == req.params.id || req.user.data.isAdmin) {
+//       next();
+//     } else {
+//       res
+//         .status(403)
+//         .json({ message: 'You ar not allowed to take this action' });
+//     }
+//   });
+// };
 
 const verifyTokenAndAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
@@ -40,4 +40,4 @@ const verifyTokenAndAdmin = (req, res, next) => {
   });
 };
 
-export { verifyToken, verifyTokenAndAuth, verifyTokenAndAdmin };
+export { verifyToken, verifyTokenAndAdmin };
