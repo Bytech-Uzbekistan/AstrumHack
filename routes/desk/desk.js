@@ -1,14 +1,14 @@
 import { Router } from 'express';
 const router = Router();
 import Floor from '../../models/floor.model.js';
-import Building from '../../models/building.model.js';
+import Desk from '../../models/desk.model.js';
 
 import { verifyTokenAndAdmin } from '../../middleware/verifyToken.js';
 
 router.get('/', verifyTokenAndAdmin, async (req, res) => {
   try {
-    const floors = await Floor.find();
-    res.status(200).json({ floors });
+    const desks = await Desk.find();
+    res.status(200).json({ desks });
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -16,15 +16,15 @@ router.get('/', verifyTokenAndAdmin, async (req, res) => {
 
 router.post('/create', verifyTokenAndAdmin, async (req, res) => {
   try {
-    const { name, building_id } = req.body;
-    if (!name || !building_id) {
-      res.status(400).json({ message: 'Please provide name and building_id' });
+    const { name, floor_id } = req.body;
+    if (!name || !floor_id) {
+      res.status(400).json({ message: 'Please provide name and floor_id' });
     }
-    const floor = await Floor.create({ name: name });
-    const building = await Building.findById(building_id);
-    building.floors.push(floor._id);
+    const desk = await Desk.create({ name: name });
+    const floor = await Floor.findById(floor_id);
+    floor.desks.push(desk._id);
     await building.save();
-    res.status(200).json({ floor });
+    res.status(200).json({ desk });
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -32,8 +32,8 @@ router.post('/create', verifyTokenAndAdmin, async (req, res) => {
 
 router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
   try {
-    const floor = await Flooor.findOneAndDelete({ _id: req.params.id });
-    res.status(200).json({ message: 'Floor has been deleted', floor });
+    const desk = await Desk.findOneAndDelete({ _id: req.params.id });
+    res.status(200).json({ message: 'Floor has been deleted', desk });
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -42,12 +42,12 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 router.put('/:id', verifyTokenAndAdmin, async (req, res) => {
   try {
     const { name, image } = req.body;
-    const floor = await Floor.findOneAndUpdate(
+    const desk = await Desk.findOneAndUpdate(
       { _id: req.params.id },
       { name, image },
       { new: true }
     );
-    await floor.save();
+    await desk.save();
     res.status(200).json({ floor });
   } catch (err) {
     res.status(500).json({ error: err });
