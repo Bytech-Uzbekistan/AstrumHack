@@ -4,7 +4,12 @@ import uniqueValidator from 'mongoose-unique-validator';
 
 export const deskSchema = new Schema({
   name: { type: 'string', required: true },
-  available: { type: 'boolean', required: true, default: true },
+  reservations: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Reservation',
+    },
+  ],
 });
 deskSchema.plugin(uniqueValidator);
 const Desk = model('Floor', deskSchema);

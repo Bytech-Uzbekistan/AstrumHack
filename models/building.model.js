@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
 import uniqueValidator from 'mongoose-unique-validator';
-const buildingSchema = new Schema({
+const buildingSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   floors: [
     {
-      id: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Floor',
     },
   ],
   image: { type: String, required: false },
 });
 buildingSchema.plugin(uniqueValidator);
-const Building = model('Building', buildingSchema);
+const Building = mongoose.model('Building', buildingSchema);
 
 export default Building;

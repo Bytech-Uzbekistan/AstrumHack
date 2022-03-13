@@ -9,7 +9,8 @@ export const floorSchema = new Schema({
   },
   desks: [
     {
-      id: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Desk',
     },
   ],
   image: { type: String, required: false },
